@@ -11,15 +11,8 @@ public class Main {
             System.out.println(input[i]);
         }
 
-        input = sort(input, 0, input.length);
-        for (int i = 0; i < input.length; i++) {
-            System.out.println(input[i]);
-        }
+        System.out.println("-> " + randomizedSelect(input, 0, input.length - 1, 6));
 
-        /*for (int i = 1; i < array.length; i++) {
-
-
-        }*/
     }
 
     /**
@@ -40,23 +33,72 @@ public class Main {
     }
 
     /**
-     * Merges two subarrays of array[].
-     * @param array
-     * @param l
-     * @param m
-     * @param r
+     * Swap
      */
-    public static double[] merge(double[] arr, int l, int m, int r) {
-        
+    public static double[] swapCells(double[] array, int i, int j) {
+        double temp;
+
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+
+        return array;
     }
 
     /**
-     * Uses merge() to sort an array.
-     * @param array
-     * @param l
-     * @param r
+     * Partition algorithm
+     *
      */
-    public static double[] sort(double[] arr, int l, int r) {
+    public static int partition(double[] array, int p, int r) {
+        double x = array[r];
+        int i = p - 1;
+
+        for (int j = p; j < r; j++) {
+            if (array[j] <= x) {
+                i++;
+                array = swapCells(array, i, j);
+            }
+        }
+        array = swapCells(array, i + 1, r);
+
+        return i + 1;
+    }
+
+    /**
+     * Randomized partition
+     */
+    public static int randomizedPartition(double[] array, int p, int r) {
+        /*int i = random(p, r);
+        array = swapCells(array, r, i);*/
+
+        return partition(array, p, r);
+    }
+
+    /**
+     * Select algorithm
+     */
+    public static double randomizedSelect(double[] array, int p, int r, int i) {
+        int q, k;
+
+        if (p == r)
+            return array[p];
+
+        q = partition(array, p, r);
+        k = q - p + 1;
+
+        if (i == k)
+            return array[q];
+        else if (i < k)
+            return randomizedSelect(array, p, q - 1, i);
+        else
+            return randomizedSelect(array, q + 1, r, i - k);
 
     }
+
+    /**
+     * Random number generator
+     */
+    /*public static int random(int seed) {
+
+    }*/
 }
