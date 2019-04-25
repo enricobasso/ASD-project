@@ -29,13 +29,6 @@ public class Main {
         Main media = new Main(input);
         int pivot = media.select(0, media.array.length - 1, media.array.length / 2);
         System.out.println("-> pivot: " + pivot);
-        /*media.swapCells(pivot, media.array.length - 1);
-        media.partition(0, media.array.length - 1);
-
-        for (int i = 0; i < media.array.length; i++) {
-            System.out.println(media.array[i]);
-        }*/
-
     }
 
     /**
