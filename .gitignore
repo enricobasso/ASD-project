@@ -1,5 +1,5 @@
-### Java ###
-.class
+### Compiled Java files ###
+*.class
 
 ### Windows ###
 # Windows thumbnail cache files
