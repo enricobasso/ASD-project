@@ -27,8 +27,8 @@ public class Main {
         }
 
         Main media = new Main(input);
-        int pivot = media.select(0, media.array.length - 1, media.array.length / 2);
-        System.out.println("-> pivot: " + pivot);
+        System.out.println("-> " + media.select(7, 0, media.array.length - 1));
+
     }
 
     /**
@@ -62,42 +62,106 @@ public class Main {
      * Partition algorithm
      *
      */
-    public int partition(int p, int r) {
-        double x = this.array[r];
+    public int partition(int p, int q) {
+        double pivot = this.choosePivot(p, q);
         int i = p - 1;
 
-        for (int j = p; j < r; j++) {
-            if (this.array[j] <= x) {
+        int pivotIndex = this.seek(pivot, p, q);
+        this.swapCells(pivotIndex, q);
+
+        for (int j = p; j <= q; j++) {
+            if (this.array[j] <= pivot) {
                 i++;
                 this.swapCells(i, j);
             }
         }
-        this.swapCells(i + 1, r);
-
-        return i + 1;
+        return i;
     }
 
     /**
      * Select algorithm
-     * @return the index of the element found
+     * @param i
+     * @param p
+     * @param q
+     * @return the element that would be in array[i] if this were ordered.
      */
-    public int select(int p, int r, int i) {
-        int q, k;
+    public double select(int i, int p, int q) {
+        int x = this.partition(p, q);
 
-        if (p == r)
-            //return array[p];
-            return p;
-
-        q = this.partition(p, r);
-        k = q - p + 1;
-
-        if (i == k)
-            //return array[q];
-            return q;
-        else if (i < k)
-            return this.select(p, q - 1, i);
+        if (i == x)
+            return this.array[x];
         else
-            return this.select(q + 1, r, i - k);
+            if (i < x)
+                return this.select(i, p, x - 1);
+            else
+                return this.select(i, x + 1, q);
+    }
 
+    /**
+     * Method that searches for an array element.
+     * @param x the item to search for.
+     * @param p start index.
+     * @param q end index.
+     * @return the index of the element found, or -1 (error).
+    */
+    public int seek(double x, int p, int q) {
+        for (int i = p; i <= q; i++) {
+            if (this.array[i] == x) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Method that sorts a small part of the array.
+     * @param begin stard index.
+     * @param endOfArray
+     * @param k
+    */
+    public void sortAPart(int begin, int endOfArray, int k) {
+        for (int i = begin; i < begin + (k - 1) && i < endOfArray; i++) {
+            for (int j = i + 1; j < begin + k && j <= endOfArray; j++) {
+                if (this.array[i] > this.array[j]) {
+                    this.swapCells(i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * choosePivot
+     * @param p start index.
+     * @param q end index.
+     * @return selected pivot.
+    */
+    public double choosePivot(int p, int q) {
+        int n = q - p + 1;
+        int dim = n / 5;
+
+        if (n % 5 != 0) {
+            dim = dim + 1;
+        }
+
+        double[] B = new double[dim];
+        int i = p;
+
+        for (int j = 0; j < dim; j++) {
+            this.sortAPart(i, q, 5);
+            double median;
+            if (q - i < 5)
+                median = this.array[i + (int) Math.floor((q - i) / 2)];
+            else
+                median = this.array[i + 2];
+
+            B[j] = median;
+            i = i + 5;
+
+        }
+
+        if (dim == 1)
+            return B[0];
+        else
+            return select((int) Math.floor(dim / 2), 0, dim - 1);
     }
 }
