@@ -26,8 +26,31 @@ public class Main {
             System.out.println(input[i]);
         }
 
-        Main media = new Main(input);
-        System.out.println("-> " + media.select(7, 0, media.array.length - 1));
+        Main medianObject = new Main(input);
+
+        System.out.println("Wk: " + medianObject.calcInferiorMedian(medianObject.array.length / 2, 0));
+    }
+
+    /*
+     *
+    */
+    public double calcInferiorMedian(int k, double middleArraySum) {
+        if (k < 1 || k > this.array.length - 1) {
+            return -1;
+        }
+
+        this.select(k, 0, this.array.length - 1);
+
+        // The first time the method is executed it calculates the sum of all the weights divided by 2.
+        if (k == this.array.length / 2)
+            middleArraySum = this.arraySum(0, this.array.length - 1) / 2;
+
+        if (this.arraySum(0, k - 1) < middleArraySum && middleArraySum <= this.arraySum(0, k))
+            return this.array[k];
+        else if (this.arraySum(0, k) < middleArraySum)
+            return this.calcInferiorMedian(k + 1, middleArraySum);
+        else
+            return this.calcInferiorMedian(k - 1, middleArraySum);
 
     }
 
@@ -83,7 +106,7 @@ public class Main {
      * @param i
      * @param p
      * @param q
-     * @return the element that would be in array[i] if this were ordered.
+     * @return the index of the element that would be in array[i] if this were ordered.
      */
     public double select(int i, int p, int q) {
         int x = this.partition(p, q);
