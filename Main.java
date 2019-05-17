@@ -2,6 +2,7 @@ import static java.lang.System.*;
 
 public class Main {
     double[] array;
+    double middleArraySum;
 
     public Main(double[] input) {
         this.array = input;
@@ -28,29 +29,26 @@ public class Main {
 
         Main medianObject = new Main(input);
 
-        System.out.println("Wk: " + medianObject.calcInferiorMedian(medianObject.array.length / 2, 0));
+        double middleArraySum = medianObject.arraySum(0, medianObject.array.length - 1) / 2;
+
+        System.out.println("Wk: " + medianObject.calcInferiorMedian(medianObject.array.length / 2, 0, medianObject.array.length - 1, middleArraySum));
     }
 
     /*
      *
     */
-    public double calcInferiorMedian(int k, double middleArraySum) {
-        if (k < 1 || k > this.array.length - 1) {
+    public double calcInferiorMedian(int k, int p, int q, double middleArraySum) {
+        if (k < 1 || k > this.array.length - 1)
             return -1;
-        }
 
-        this.select(k, 0, this.array.length - 1);
-
-        // The first time the method is executed it calculates the sum of all the weights divided by 2.
-        if (k == this.array.length / 2)
-            middleArraySum = this.arraySum(0, this.array.length - 1) / 2;
+        this.select(k, p, q);
 
         if (this.arraySum(0, k - 1) < middleArraySum && middleArraySum <= this.arraySum(0, k))
             return this.array[k];
         else if (this.arraySum(0, k) < middleArraySum)
-            return this.calcInferiorMedian(k + 1, middleArraySum);
+            return this.calcInferiorMedian(q / 2, k, q, middleArraySum);
         else
-            return this.calcInferiorMedian(k - 1, middleArraySum);
+            return this.calcInferiorMedian(k / 2, p, k, middleArraySum);
 
     }
 
