@@ -31,7 +31,7 @@ public class Main {
         // select ritorna l'elemento che sarebbe in posizione (p + q) / 2
         double pivot = select(array, m, p, q);
         // metto il pivot in mezzo
-        array = swapCells(array, seek(array, pivot, 0, array.length - 1), m);
+        array = swapCells(array, seek(array, pivot, p, q), m);
         System.out.println("Perno: " + array[m] + " (index = " + m + ")");
         printArray(array);
         // eseguo partition sull'array e mi ritorno l'array diviso in due x < m < y
