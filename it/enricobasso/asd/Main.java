@@ -49,7 +49,7 @@ public class Main {
         	if (leftSum > middleArraySum) {
                 return calcInferiorMedian(array, p, m - 1, middleArraySum);
         	} else {
-                return calcInferiorMedian(array, m, q, middleArraySum);   
+                return calcInferiorMedian(array, m + 1, q, middleArraySum);   
         	}
         }
     }
@@ -160,9 +160,6 @@ public class Main {
             return select(array, (int) Math.floor(dim / 2), 0, dim - 1);
     }
 
-    /**
-     * Swap
-     */
     public static double[] swapCells(double[] array, int i, int j) {
         double temp;
 
@@ -190,12 +187,6 @@ public class Main {
         return -1;
     }
 
-     /**
-     * Return the sum of the specified elements of the array.
-     * @param pos1 the index of the first element to sum
-     * @param pos2 the index of the last element to sum
-     * @return the sum
-     */
     public static double arraySum(double[] array, int pos1, int pos2) {
         double sum = 0;
 
@@ -211,16 +202,5 @@ public class Main {
             System.out.print(array[i] + " ");
         }
         System.out.println();
-    }
-
-    public static int countKey(double[] array, double k) {
-        int j = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == k) {
-                j = j + 1;
-            }
-        }
-
-        return j;
     }
 }
