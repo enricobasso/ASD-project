@@ -1,3 +1,5 @@
+package it.enricobasso.asd;
+
 public class MainNAIVE   {
     public static void main(String[] args) {
         /*

@@ -1,3 +1,5 @@
+package it.enricobasso.asd;
+
 import java.util.Random;
 
 public class Generatore {
