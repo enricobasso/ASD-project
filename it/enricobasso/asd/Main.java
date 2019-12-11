@@ -13,7 +13,8 @@ public class Main {
             0.2
             0.35
         */
-        double[] input = {0.1, 0.35, 0.05, 0.1, 0.15, 0.05, 0.2};
+        //double[] input = {0.1, 0.35, 0.05, 0.1, 0.15, 0.05, 0.2};
+        double[] input = {0.2, 0.35, 0.1, 0.05, 0.1, 0.15, 0.05};
 
         // Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
@@ -26,31 +27,31 @@ public class Main {
      *
     */
     public static double calcInferiorMedian(double[] array, int p, int q, double middleArraySum) {
-        if (p > q)
+        if (p > q) {
             return -1;
+        }
 
         int m = (p + q) / 2;
-        // select ritorna l'elemento che sarebbe in posizione (p + q) / 2
         double pivot = select(array, m, p, q);
-        // metto il pivot in mezzo
         array = swapCells(array, seek(array, pivot, p, q), m);
+        
         System.out.println("Perno: " + array[m] + " (index = " + m + ")");
         printArray(array);
         // eseguo partition sull'array e mi ritorno l'array diviso in due x < m < y
         array = leftPartition(array, m, p, q);
         
-
-        // m va a destra o a sinistra?
-        double leftSum = arraySum(array, p, m);
-        double rightSum = arraySum(array, m + 1, q);
+        double leftSum = arraySum(array, 0, m - 1);
+        double rightSum = arraySum(array, 0, m);
         
-        if (leftSum < middleArraySum && middleArraySum <= rightSum)
+        if (leftSum < middleArraySum && middleArraySum <= rightSum) {
             return array[m];
-        else
-            if (leftSum > middleArraySum)
+        } else {
+        	if (leftSum > middleArraySum) {
                 return calcInferiorMedian(array, p, m - 1, middleArraySum);
-            else
-                return calcInferiorMedian(array, m, q, middleArraySum);
+        	} else {
+                return calcInferiorMedian(array, m, q, middleArraySum);   
+        	}
+        }
     }
 
     /**
