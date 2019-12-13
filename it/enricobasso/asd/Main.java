@@ -61,8 +61,7 @@ public class Main {
         for (int j = p; j <= q; j++) {
             if (array[j] <= pivot) {
                 i++;
-                //array = swapCells(array, i, j);
-                swapCells(array, i, j);
+                array = swapCells(array, i, j);
             }
         }
         return i;
