@@ -30,22 +30,29 @@ public class InputGenerator {
 		return currentSeed / m;
 	}
 	
-	public double[] getNewArray() {
+	public String getNewArray() {
 		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 100))];
+		String output = "";
 		
 		for (int i = 0; i < array.length; i++) {
-			array[i] = Math.round(this.getRandomNumber());
+			array[i] = this.getRandomNumber();
+			
+			if (i == 0) {
+				output = array[i] + "";
+			} else {
+				output = output + ", " + array[i];
+			}
+			
 		}
 		
-		return array;
+		return output;
 	}
 	
 	public static void main(String[] args) {
 		InputGenerator inputGen = new InputGenerator(System.currentTimeMillis());
-		double[] array = inputGen.getNewArray();
+		String output = inputGen.getNewArray();
+	
+		System.out.println(output);
 		
-		for (int i = 0; i < array.length; i++) {
-			System.out.println(array[i]);
-		}
 	}
 }
