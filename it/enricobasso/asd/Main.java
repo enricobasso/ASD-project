@@ -26,13 +26,12 @@ public class Main {
         }
 
         int m = (p + q) / 2;
-        //double pivot = select(array, m, p, q); // O(n)
-        select(array, m, p, q); // O(n)
-        //array = swapCells(array, seek(array, pivot, p, q), m); // O(n)
+        double pivot = select(array, m, p, q); // O(n)
+        array = swapCells(array, seek(array, pivot, p, q), m); // O(n)
         System.out.println("Perno: " + array[m] + " (index = " + m + ")");
         printArray(array);
         // eseguo partition sull'array e mi ritorno l'array diviso in due x < m < y
-        //array = leftPartition(array, m, p, q); // H(n)
+        array = leftPartition(array, m, p, q); // H(n)
         
         double leftSum = arraySum(array, 0, m - 1); // H(n/2)
         double rightSum = arraySum(array, 0, m); // H(n/2)
@@ -57,8 +56,7 @@ public class Main {
         int i = p - 1;
 
         int pivotIndex = seek(array, pivot, p, q);
-        //array = swapCells(array, pivotIndex, q);
-        swapCells(array, pivotIndex, q);
+        array = swapCells(array, pivotIndex, q);
 
         for (int j = p; j <= q; j++) {
             if (array[j] <= pivot) {
@@ -138,8 +136,7 @@ public class Main {
         int i = p;
 
         for (int j = 0; j < dim; j++) {
-            //array = sortAPart(array, i, q, 5);
-        	sortAPart(array, i, q, 5);
+            array = sortAPart(array, i, q, 5);
             double median;
             if (q - i < 5) {
                 median = array[i + (int) Math.floor((q - i) / 2)];
