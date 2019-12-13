@@ -31,7 +31,7 @@ public class InputGenerator {
 	}
 	
 	public String getNewArray() {
-		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 100))];
+		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 10000))];
 		String output = "";
 		
 		for (int i = 0; i < array.length; i++) {
