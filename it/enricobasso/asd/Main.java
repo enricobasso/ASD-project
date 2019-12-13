@@ -12,9 +12,8 @@ public class Main {
     	double[] input = InputGetter.readInput();
     	// Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
-        System.out.println("W / 2 = " + middleArraySum);
-        // Calcolo la media
-        System.out.println("Wk: " + calcInferiorMedian(input, 0, input.length - 1, middleArraySum));
+        // Calcololo mediana inferiore
+        System.out.println(calcInferiorMedian(input, 0, input.length - 1, middleArraySum));
     }
 
     /*
@@ -26,12 +25,7 @@ public class Main {
         }
 
         int m = (p + q) / 2;
-        double pivot = select(array, m, p, q); // O(n)
-        array = swapCells(array, seek(array, pivot, p, q), m); // O(n)
-        System.out.println("Perno: " + array[m] + " (index = " + m + ")");
-        printArray(array);
-        // eseguo partition sull'array e mi ritorno l'array diviso in due x < m < y
-        array = leftPartition(array, m, p, q); // H(n)
+        select(array, m, p, q); // O(n)
         
         double leftSum = arraySum(array, 0, m - 1); // H(n/2)
         double rightSum = arraySum(array, 0, m); // H(n/2)
@@ -56,29 +50,15 @@ public class Main {
         int i = p - 1;
 
         int pivotIndex = seek(array, pivot, p, q);
-        array = swapCells(array, pivotIndex, q);
+        swapCells(array, pivotIndex, q);
 
         for (int j = p; j <= q; j++) {
             if (array[j] <= pivot) {
                 i++;
-                array = swapCells(array, i, j);
+                swapCells(array, i, j);
             }
         }
         return i;
-    }
-
-    public static double[] leftPartition(double[] array, int pivotIndex, int p, int q) {
-        int i = p - 1;
-        double pivot = array[pivotIndex];
-        array = swapCells(array, pivotIndex, q);
-
-        for (int j = p; j <= q; j++) {
-            if (array[j] <= pivot) {
-                i++;
-                array = swapCells(array, i, j);
-            }
-        }
-        return array;
     }
 
     /**
@@ -91,13 +71,13 @@ public class Main {
     public static double select(double[] array, int i, int p, int q) {
         int x = partition(array, p, q);
 
-        if (i == x)
+        if (i == x) {
             return array[x];
-        else
-            if (i < x)
-                return select(array, i, p, x - 1);
-            else
-                return select(array, i, x + 1, q);
+        } else if (i < x) {
+            return select(array, i, p, x - 1);
+        } else {
+            return select(array, i, x + 1, q);
+        }
     }
 
     /**
@@ -110,7 +90,7 @@ public class Main {
         for (int i = begin; i < begin + (k - 1) && i < endOfArray; i++) {
             for (int j = i + 1; j < begin + k && j <= endOfArray; j++) {
                 if (array[i] > array[j]) {
-                    array = swapCells(array, i, j);
+                    swapCells(array, i, j);
                 }
             }
         }
@@ -135,7 +115,7 @@ public class Main {
         int i = p;
 
         for (int j = 0; j < dim; j++) {
-            array = sortAPart(array, i, q, 5);
+            sortAPart(array, i, q, 5);
             double median;
             if (q - i < 5) {
                 median = array[i + (int) Math.floor((q - i) / 2)];
@@ -151,7 +131,7 @@ public class Main {
         if (dim == 1) {
             return B[0];
         } else {
-            return select(array, (int) Math.floor(dim / 2), 0, dim - 1);
+            return select(B, (int) Math.floor(dim / 2), 0, dim - 1);
         }
     }
 
@@ -190,12 +170,5 @@ public class Main {
         }
 
         return sum;
-    }
-
-    public static void printArray(double[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
     }
 }
