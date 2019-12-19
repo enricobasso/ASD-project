@@ -20,14 +20,15 @@ public class MainNAIVE   {
         /*for (int i = 0; i < input.length; i++) {
             System.out.println(input[i]);
         }*/
-        double[] input = InputGetter.readInput();
-        
-        double middleArraySum = 0;
+    	InputGetter inputHandler = new InputGetter();
+        System.out.println(execute(inputHandler.getInput()));
+    }
+    
+    public static double execute(double[] input) {
+    	double middleArraySum = 0;
         for (int i = 0; i < input.length; i++) {
             middleArraySum = middleArraySum + input[i];
         }
-
-        System.out.println("WK/2: " + middleArraySum / 2);
 
         middleArraySum = middleArraySum / 2;
 
@@ -43,9 +44,10 @@ public class MainNAIVE   {
                 }
             }
             if (leftSum < middleArraySum && middleArraySum <= rightSum) {
-                System.out.println(input[i]);
-                break;
+                return input[i];
             }
         }
+        
+        return -1;
     }
 }

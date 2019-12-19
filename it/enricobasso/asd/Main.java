@@ -4,12 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
         //double[] input = {0.1, 0.35, 0.05, 0.1, 0.15, 0.05, 0.2};
-    	
-    	execute();
+    	InputGetter inputHandler = new InputGetter();
+    	execute(inputHandler.getInput());
     }
     
-    public static void execute() {
-    	double[] input = InputGetter.readInput();
+    public static void execute(double[] input) {
+    	
     	// Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
         // Calcololo mediana inferiore
