@@ -30,7 +30,7 @@ public class InputGenerator {
 		return currentSeed / m;
 	}
 	
-	public String getNewArray() {
+	public String getNewStringArray() {
 		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 10000))];
 		String output = "";
 		
@@ -48,9 +48,20 @@ public class InputGenerator {
 		return output;
 	}
 	
+	public double[] getNewArray() {
+		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 10000))];
+		
+		for (int i = 0; i < array.length; i++) {
+			array[i] = this.getRandomNumber();
+		}
+		
+		return array;
+		
+	}
+	
 	public static void main(String[] args) {
 		InputGenerator inputGen = new InputGenerator(System.currentTimeMillis());
-		String output = inputGen.getNewArray();
+		String output = inputGen.getNewStringArray();
 	
 		System.out.println(output);
 		
