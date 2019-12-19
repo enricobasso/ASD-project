@@ -1,9 +1,9 @@
 package it.enricobasso.asd;
 
 public class Complexity {
-	InputGetter input;
+	double[] input;
 	
-	public Complexity(InputGetter input) {
+	public Complexity(double[] input) {
 		this.input = input;
 	}
 	
@@ -34,14 +34,14 @@ public class Complexity {
 		long currentExecutionTime = t1 - t0;
 		
 		while(currentExecutionTime <= tMin) {
-			repsCount = repsCount*2;
+			repsCount = repsCount * 2;
 			t0 = System.currentTimeMillis();
 			for(int i = 0; i < repsCount;  i++) {
 				Main.execute(input);
 			}
 			t1 = System.currentTimeMillis();
 			
-			currentExecutionTime = t1-t0;
+			currentExecutionTime = t1 - t0;
 		}
 		
 		int maxRepsCount = repsCount;
@@ -53,15 +53,16 @@ public class Complexity {
 			int middleReps = (maxRepsCount+minRepsCount) / 2;
 			t0 = System.currentTimeMillis();
 			
-			for(int i = 0; i < middleReps;  i++){
+			for(int i = 0; i < middleReps;  i++) {
 				Main.execute(input);
 			}
 			t1 = System.currentTimeMillis();
 			
 			if(t1 - t0 <= tMin){
 				minRepsCount = middleReps;
-			}else{
+			} else {
 				maxRepsCount = repsCount;
+				// non maxRepsCount = middleReps; ??
 			}
 		}
 		
@@ -71,13 +72,13 @@ public class Complexity {
 	public long timeCalculator(int repsCount) {
 		long t0 = System.currentTimeMillis();
 		
-		for(int i = 0; i < repsCount; i++){
+		for(int i = 0; i < repsCount; i++) {
 			Main.execute(input);
 		}
 		
 		long t1 = System.currentTimeMillis(); 
-		long tTot = t1-t0;
-		long tSing = tTot/repsCount;
+		long tTot = t1 - t0;
+		long tSing = tTot / repsCount;
 		
 		return tSing;
 	}
@@ -101,12 +102,12 @@ public class Complexity {
     		}
     		
     		numberOfCicles += c;
-    		mediumValue =  sumOfAllExecutionsTimes /  numberOfCicles; //tempo medio corrente 
+    		mediumValue =  sumOfAllExecutionsTimes / numberOfCicles; //tempo medio corrente 
     		
     		sqrtResult = Math.sqrt((stats / numberOfCicles) - mediumValue*mediumValue);
-    		delta = (1 / (Math.sqrt(numberOfCicles)))*za*sqrtResult;
+    		delta = (1 / (Math.sqrt(numberOfCicles))) * za * sqrtResult;
     		
-    		deltaMaiusc = mediumValue/5; //DELTA è settato ad 1/5 del tempo medio
+    		deltaMaiusc = mediumValue / 5; //DELTA è settato ad 1/5 del tempo medio
 
     	} while(delta >= deltaMaiusc);
     	
