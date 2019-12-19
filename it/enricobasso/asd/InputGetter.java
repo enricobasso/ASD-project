@@ -3,14 +3,14 @@ package it.enricobasso.asd;
 import java.util.Scanner;
 
 public class InputGetter {
+	
+	private double[] input;
 
 	public InputGetter() {
-		// TODO Auto-generated constructor stub
-	}		
+		readInput();
+	}
 	
-	public static double[] readInput() {
-		double[] input;
-		
+	public void readInput() {
 		Scanner sc = new Scanner(System.in);
 		String line = sc.nextLine();
 		sc.close();
@@ -20,8 +20,13 @@ public class InputGetter {
 		for (int i = 0; i < splittedLine.length; i++) {
 			input[i] = Double.valueOf(splittedLine[i]);
 		}
-
+	}
+	
+	public double[] getInput() {
 		return input;
 	}
-
+	
+	public void setInput(double[] input) {
+		this.input = input;
+	}
 }
