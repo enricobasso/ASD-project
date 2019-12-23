@@ -1,5 +1,3 @@
-package it.enricobasso.asd;
-
 public class InputGenerator {
 	
 	double currentSeed;
