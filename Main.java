@@ -1,22 +1,18 @@
 public class Main {
 
     public static void main(String[] args) {
-        //double[] input = {0.1, 0.35, 0.05, 0.1, 0.15, 0.05, 0.2};
     	InputGetter inputHandler = new InputGetter();
     	execute(inputHandler.getInput());
     }
-    
+
     public static void execute(double[] input) {
-    	
+
     	// Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
         // Calcololo mediana inferiore
         System.out.println(calcInferiorMedian(input, 0, input.length - 1, middleArraySum));
     }
 
-    /*
-     * Sviluppi futuri: nella ricorsione a destra portarsi dietro la somma e aggiornala (a sinistra bisognerebbe comunque ricalcolarla).
-    */
     public static double calcInferiorMedian(double[] array, int p, int q, double middleArraySum) {
         if (p > q) {
             return -1;
@@ -24,17 +20,17 @@ public class Main {
 
         int m = (p + q) / 2;
         select(array, m, p, q); // O(n)
-        
+
         double leftSum = arraySum(array, 0, m - 1); // H(n/2)
         double rightSum = arraySum(array, 0, m); // H(n/2)
-        
+
         if (leftSum < middleArraySum && middleArraySum <= rightSum) {
             return array[m];
         } else {
         	if (leftSum > middleArraySum) {
                 return calcInferiorMedian(array, p, m - 1, middleArraySum); // T(n/2)
         	} else {
-                return calcInferiorMedian(array, m + 1, q, middleArraySum);   
+                return calcInferiorMedian(array, m + 1, q, middleArraySum);
         	}
         }
     }
