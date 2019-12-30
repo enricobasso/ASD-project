@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-    	InputGetter inputHandler = new InputGetter();
+    	InputGetter inputHandler = new InputGetter(null);
     	execute(inputHandler.getInput());
     }
 

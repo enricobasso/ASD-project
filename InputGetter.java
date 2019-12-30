@@ -4,8 +4,13 @@ public class InputGetter {
 
 	private double[] input;
 
-	public InputGetter() {
-		readInput();
+	public InputGetter(double[] input) {
+		if (input == null) {
+			readInput();
+		} else {
+			this.input = input;
+		}
+
 	}
 
 	public void readInput() {
@@ -14,7 +19,7 @@ public class InputGetter {
 		sc.close();
 		// elimino punto finale
 		line = line.substring(0, line.length() - 1);
-		
+
 		String[] splittedLine = line.split(",");
 		input = new double[splittedLine.length];
 

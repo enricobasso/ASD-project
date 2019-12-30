@@ -29,7 +29,7 @@ public class InputGenerator {
 	}
 
 	public String getNewStringArray() {
-		double[] array = new double[1000000];
+		double[] array = new double[10];
 		String output = "";
 
 		for (int i = 0; i < array.length; i++) {
@@ -47,14 +47,13 @@ public class InputGenerator {
 	}
 
 	public double[] getNewArray() {
-		double[] array = new double[(int)(1 + Math.round(this.getRandomNumber() * 10000))];
+		double[] array = new double[10];
 
 		for (int i = 0; i < array.length; i++) {
 			array[i] = this.getRandomNumber();
 		}
 
 		return array;
-
 	}
 
 	public static void main(String[] args) {

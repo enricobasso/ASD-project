@@ -19,7 +19,7 @@ public class MainNAIVE   {
         /*for (int i = 0; i < input.length; i++) {
             System.out.println(input[i]);
         }*/
-    	InputGetter inputHandler = new InputGetter();
+    	InputGetter inputHandler = new InputGetter(null);
         System.out.println(execute(inputHandler.getInput()));
     }
 
