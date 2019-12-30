@@ -6,8 +6,7 @@ public class Main {
     }
 
     public static void execute(double[] input) {
-
-    	// Calcolo somma array / 2
+      	// Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
         // Calcololo mediana inferiore
         System.out.println(calcInferiorMedian(input, 0, input.length - 1, middleArraySum));
