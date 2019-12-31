@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Classe per la gestione dell'input
+ */
 public class InputGetter {
 
 	private double[] input;
@@ -13,6 +16,9 @@ public class InputGetter {
 
 	}
 
+	/**
+	 * lettura array da standard input
+	 */
 	public void readInput() {
 		Scanner sc = new Scanner(System.in);
 		String line = sc.nextLine();

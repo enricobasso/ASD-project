@@ -18,16 +18,18 @@ public class Main {
         }
 
         int m = (p + q) / 2;
-        select(array, m, p, q); // O(n)
+        // cerco la mediana candidata
+        select(array, m, p, q);
 
-        double leftSum = arraySum(array, 0, m - 1); // H(n/2)
-        double rightSum = arraySum(array, 0, m); // H(n/2)
+        // calcolo somme per effettuare verifica della mediana
+        double leftSum = arraySum(array, 0, m - 1);
+        double rightSum = arraySum(array, 0, m);
 
         if (leftSum < middleArraySum && middleArraySum <= rightSum) {
             return array[m];
         } else {
         	if (leftSum > middleArraySum) {
-                return calcInferiorMedian(array, p, m - 1, middleArraySum); // T(n/2)
+                return calcInferiorMedian(array, p, m - 1, middleArraySum);
         	} else {
                 return calcInferiorMedian(array, m + 1, q, middleArraySum);
         	}
@@ -35,8 +37,7 @@ public class Main {
     }
 
     /**
-     * Partition algorithm
-     *
+     * Algoritmo partition
      */
     public static int partition(double[] array, int p, int q) {
         double pivot = choosePivot(array, p, q);
@@ -55,15 +56,10 @@ public class Main {
     }
 
     /**
-     * Select algorithm
-     * @param i
-     * @param p
-     * @param q
-     * @return the element that would be in array[i] if this was ordered.
+     * algoritmo select
      */
     public static double select(double[] array, int i, int p, int q) {
         int x = partition(array, p, q);
-
         if (i == x) {
             return array[x];
         } else if (i < x) {
@@ -74,10 +70,7 @@ public class Main {
     }
 
     /**
-     * Method that sorts a small part of the array.
-     * @param begin stard index.
-     * @param endOfArray
-     * @param k
+     * Metodo che ordina una piccola porzione di array
     */
     public static double[] sortAPart(double[] array, int begin, int endOfArray, int k) {
         for (int i = begin; i < begin + (k - 1) && i < endOfArray; i++) {
@@ -91,10 +84,7 @@ public class Main {
     }
 
     /**
-     * choosePivot
-     * @param p start index.
-     * @param q end index.
-     * @return selected pivot.
+     * Metodo per la scelta di un pivot (mediano dei mediani)
     */
     public static double choosePivot(double[] array, int p, int q) {
         int n = q - p + 1;
@@ -128,6 +118,9 @@ public class Main {
         }
     }
 
+    /*
+    * metodo per lo scambio di due celle
+    */
     public static double[] swapCells(double[] array, int i, int j) {
         double temp;
 
@@ -139,11 +132,7 @@ public class Main {
     }
 
     /**
-     * Method that searches for an array element.
-     * @param x the item to search for.
-     * @param p start index.
-     * @param q end index.
-     * @return the index of the element found, or -1 (error).
+     * Metodo che ricerca un elemento in un array.
     */
     public static int seek(double[] array, double x, int p, int q) {
         for (int i = p; i <= q; i++) {
@@ -155,6 +144,9 @@ public class Main {
         return -1;
     }
 
+    /**
+     * Metodo che calcola la somma degli elementi di un array
+     */
     public static double arraySum(double[] array, int pos1, int pos2) {
         double sum = 0;
 

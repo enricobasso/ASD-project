@@ -4,7 +4,8 @@ public class InputGenerator {
 
 	public InputGenerator(double seed) {
 		currentSeed = seed;
-		getRandomNumber(); //to avoid < 0 numbers error
+		// per evitare numeri < 0
+		getRandomNumber();
 	}
 
 	public double getRandomNumber(){
@@ -28,8 +29,11 @@ public class InputGenerator {
 		return currentSeed / m;
 	}
 
+	/**
+	 * Metodo che ritorna una stringa valida come input.
+	 */
 	public String getNewStringArray() {
-		double[] array = new double[10];
+		double[] array = new double[4000000];
 		String output = "";
 
 		for (int i = 0; i < array.length; i++) {
@@ -40,14 +44,15 @@ public class InputGenerator {
 			} else {
 				output = output + ", " + array[i];
 			}
-
 		}
-
 		return output + ".";
 	}
 
-	public double[] getNewArray() {
-		double[] array = new double[10];
+	/**
+	 * Genera un array di Double
+	 */
+	public double[] getNewArray(int dim) {
+		double[] array = new double[dim];
 
 		for (int i = 0; i < array.length; i++) {
 			array[i] = this.getRandomNumber();
@@ -57,6 +62,7 @@ public class InputGenerator {
 	}
 
 	public static void main(String[] args) {
+		// stampa in std output una stringa valida come input per l'algoritmo calcInferiorMedian().
 		InputGenerator inputGen = new InputGenerator(System.currentTimeMillis());
 		String output = inputGen.getNewStringArray();
 

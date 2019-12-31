@@ -1,7 +1,9 @@
 public class MisurationMain {
 	public static void main(String[] args) {
 		InputGenerator inputGenerator = new InputGenerator(System.currentTimeMillis());
-		InputGetter inputHandler = new InputGetter(inputGenerator.getNewArray());
+		int dim = Integer.parseInt(args[0]);
+
+		InputGetter inputHandler = new InputGetter(inputGenerator.getNewArray(dim));
 
 		Complexity c = new Complexity(inputHandler.getInput());
 		long granularity = c.getGranularity();
