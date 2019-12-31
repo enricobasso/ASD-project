@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+
+\title{Progetto di Laboratorio di Algoritmi e Strutture Dati}
+\author{Enrico Basso}
+\date{December 2019}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\begin{document}
+\pagenumbering{gobble}
+\begin{titlepage}
+    \begin{center}
+        \textsc{\LARGE Università degli Studi di Udine} \\
+        [20mm]
+        \huge{\bfseries Relazione di laboratorio del corso di Algoritmi e Strutture Dati} \\
+        [5mm]
+        \textsc{\large A.A. 2018/2019} \\
+        [1cm]
+        \textsc{\Large Prof. Alberto Policriti} \\
+        [9cm]
+    \end{center}
+    \begin{flushright}
+        
+        \textsc{\large Enrico Basso \\}
+        Matr. 127935 \\
+        basso.enrico.3@spes.uniud.it
+    \end{flushright}
+
+\end{titlepage}
+\newpage
+\pagenumbering{arabic}
+
+\section{Definizione del problema}
+Il problema prevede come input una serie di $n$ valori razionali positivi dei quali è necessario individuare la mediana inferiore pesata. Si definisce mediana inferiore pesata di $w_1, ..., w_n$, il peso $w_k$ tale che:
+\begin{equation*}
+    \sum_{w_i < w_k} w_i < W/2 \leq \sum_{w_i \leq w_k}
+\end{equation*}
+
+\section{Soluzione del problema}
+Per individuare la mediana inferiore è stata ideata una soluzione che si basa sui principi della ricerca binaria e della selezione, entrambi algoritmi \textit{divide et impera}. Il processo di ricerca della mediana inferiore consiste nel verificare se l'elemento che sarebbe posizionato a metà della serie di numeri razionali positivi, se questa fosse ordinata, soddisfi la relazione descritta nel problema. Per fare questo dobbiamo prima di tutto utilizzare la selezione per cercare l'elemento che sarebbe posizionato a metà della serie, in questo modo i valori $w_i$ vengono divisi in due regioni: $w_i < w_k$ e $w_i \geq w_k$ con $w_k$ uguale all'elemento cercato tramite la selezione. È poi necessario calcolare le sommatorie degli elementi $\sum_{w_i < w_k} w_i$ e $\sum_{w_i \leq w_k} w_i$ per verificare se ffettivamente $w_k$ sia soluzione del problema. In caso negativo è necessario effettuare lo stesso controllo a destra o a sinistra di $w_k$ in base alle sommatorie appena calcolate: se esse sono maggiori di $W/2$ allora bisognerà controllare a sinistra, in caso contrario a destra. Bisogna ripetere il procedimento fino a che non si individui l'elemento mediana inferiore. 
+
+La presente soluzione ha la seguente equazione di complessità:
+\begin{equation*}
+    T(n) = \begin{cases}
+    \Theta (1) & \text{  $n = 1$}\\
+    T(\frac{n}{2}) + O(n) & \text{  $n > 1$}
+  \end{cases}
+\end{equation*}
+\begin{equation*}
+  = \sum_{i = 0}^{\log_2 n - 1}   dn + cn = dn \log_2n + cn = O(n\log_2 n)
+\end{equation*}
+
+\subsection{Implementazione della soluzione}
+
+All'interno del codice la funzione dedicata al calcolo della soluzione del problema è \textit{calcInferiorMedian()}: essa prende in input l'array di elementi, gli indici $p$ e $q$ che delimitano la zona di lavoro dell'algoritmo e la somma $W / 2$ (per non ricalcolarla ad ogni chiamata ricorsiva visto che è un valore fisso). La gestione dell'input è stata lasciata fuori da questa funzione e quindi non sarà inclusa nel calcolo dei tempi. Quindi il primo passo che effettua la funzione è ricavare tramite $select$ il valore $w_k$ che sarebbe posizionato in $array[m]$ con $m = array.length / 2$, questa operazione ha complessità $\Theta(n)$. La versione dell'algoritmo \textit{select} utilizzato per in questo caso si basa a sua volta sull'algoritmo \textit{partition} nella variante vista a lezione che decide quale perno utilizzare sfruttando il "mediano dei mediani", questo accorgimento permette l'esecuzione di \textit{select} in $\Theta(n)$.
+
+In seguito vengono calcolate le due somme $\sum_{i = 0}^{m-1} array[i]$ e $\sum_{i = 0}^{m} array[i]$, entrambe con complessità di $\Theta(\frac{n}{2})$.
+
+Infine viene effettuato il controllo se $array[m]$ è effettivamente soluzione del problema. Nel caso non lo sia si effettua la ricorsione sulla porzione di array che va da $p$ a $m-1$ se la sommaoria calcolata in precedenza è maggiore di $W/2$, altrimenti la funzione viene richiamata sulla porzione di array che va da $m+1$ a $q$. Ad ogni chiamata ricorsiva quindi la dimensione dell'input viene dimezzata.
+
+
+\section{Eseguire il codice}
+
+Per compilare il codice da dentro la cartella del progetto eseguire il comando: 
+\begin{verbatim}
+    javac *.java
+\end{verbatim}
+Per avviare il programma principale:
+\begin{verbatim}
+    java Main
+\end{verbatim}
+Per avviare il programma per la misurazione dei tempi:
+\begin{verbatim}
+    java MisurationMain <dimensione array da generare>
+\end{verbatim}
+
+\subsection{Caratteristiche della macchina}
+
+Il sistema su cui è stata sviluppata e testata la soluzione ha queste caratteristiche:
+\begin{itemize}
+    \item CPU: Intel® Core ™ i5-4570 @ 2.50GHz
+    \item RAM: 8 GB
+    \item OS: Windows 10 64 bit
+\end{itemize}
+\subsection{Calcolo dei tempi}
+Per il calcolo dei tempi sono stati utilizzati gli algoritmi visti a lezione, senza però calcolare il tempo per la lettura dell’input: i tempi calcolati sono di sola risoluzione del problema, ovvero con l'array già letto da standard input.
+I parametri sono stati impostati con i seguenti valori:
+\begin{itemize}
+    \item K = 5%
+    \item $z(1-\frac{\infty}{2})=2.33$
+    \item $\Delta = \frac{1}{5}$ del tempo medio
+\end{itemize}
+
+\subsubsection{Caso pessimo e caso medio}
+
+Per quanto riguarda questa soluzione il caso pessimo e il caso medio hanno la stessa complessità di $O(n\log n)$.
+
+Di seguito è riportato una tabella con relativo grafico con i risultati delle misurazioni fatte partendo da un minimo di 10000 elementi in input fino ad un massimo di 20 milioni.
+
+\begin{center}
+\begin{tabular}{ll}
+n        & ms   \\
+10000    & 1.4  \\
+100000   & 12   \\
+500000   & 56   \\
+1000000  & 114  \\
+1500000  & 160  \\
+2000000  & 216  \\
+2500000  & 270  \\
+3000000  & 325  \\
+5000000  & 542  \\
+10000000 & 1080 \\
+20000000 & 2220
+\end{tabular}
+\end{center}
+
+
+\begin{tikzpicture} 
+    \begin{axis}[ xlabel=n, ylabel=ms] 
+        \addplot[color=red,mark=x] coordinates {
+        (10000,1.4) 
+        (100000,12) 
+        (500000,56) 
+        (1000000,114) 
+        (1500000,160) 
+        (2000000,216) 
+        (2500000,270)
+        (3000000, 325)
+        (5000000, 542)
+        (10000000,1080)
+        (20000000,2220)
+    }; 
+    \end{axis} 
+\end{tikzpicture}
+
+Possiamo vedere quindi come i tempi registrati formino quasi una retta, con input ancora più grandi la pendenza dovrebbe iniziare a farsi notare di più data la natura della complessità dell'algoritmo di $O(n\log n)$.
+
+\subsubsection{Caso ottimo}
+
+Il caso ottimo per questa soluzione ha complessità $\Theta(n)$ ed è quel caso in cui il primo elemento trovato è mediana inferiore, per cui select viene eseguito una volta sola, da qui la complessità $\Theta(n)$. Nella pratica non sono riuscito a creare un input che soddisfi questa condizione: avevo pensato di creare un array di $n$ elementi uguali in cui l'elemento situato in posizione $\frac{n}{2}$ è soluzione. Questa configurazione dell'input è però troppo svantaggiosa per \textit{partition} che non può applicare a dovere la teoria del mediano dei mediani, per cui il tempo di esecuzione aumenta esponenzialmente (con un array di 1000 elementi uguali il programma ha misurato una durata di esecuzione di 178 ms, quando con input generati random quel tempo viene impiegato per un array di circa 1 milione di elementi). 
+\end{document}
