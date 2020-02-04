@@ -23,7 +23,8 @@ public class InputGetter {
 		Scanner sc = new Scanner(System.in);
 		String line = sc.nextLine();
 		sc.close();
-		// elimino punto finale
+		// elimino spazi e punto finale
+		line = line.replaceAll("\\s","");
 		line = line.substring(0, line.length() - 1);
 
 		String[] splittedLine = line.split(",");

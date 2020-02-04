@@ -9,7 +9,8 @@ public class Main {
       	// Calcolo somma array / 2
         double middleArraySum = arraySum(input, 0, input.length - 1) / 2;
         // Calcololo mediana inferiore
-        System.out.println(calcInferiorMedian(input, 0, input.length - 1, middleArraySum));
+        double result = calcInferiorMedian(input, 0, input.length - 1, middleArraySum);
+        System.out.println(result);
     }
 
     public static double calcInferiorMedian(double[] array, int p, int q, double middleArraySum) {
